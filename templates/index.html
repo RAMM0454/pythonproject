@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Interface</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Image to Text Processor</h1>
+        <button id="start-btn">Start</button>
+        <button id="stop-btn">Stop</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', () => {
+            fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'command=start',
+            })
+            .then(response => response.json())
+            .then(data => {
+                const output = document.getElementById('output');
+                if (data.status === 'success') {
+                    output.textContent = `Output: ${data.message}`;
+                } else {
+                    output.textContent = `Error: ${data.message}`;
+                }
+            });
+        });
+
+        document.getElementById('stop-btn').addEventListener('click', () => {
+            fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'command=stop',
+            })
+            .then(response => response.json())
+            .then(data => {
+                const output = document.getElementById('output');
+                output.textContent = data.message;
+            });
+        });
+    </script>
+</body>
+</html>
