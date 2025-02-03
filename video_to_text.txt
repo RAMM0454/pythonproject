@@ -46,3 +46,6 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+https://github.com/Vinexy/Live-Video-Text-Detection-Using-Pytesseract-OpenCV.git
